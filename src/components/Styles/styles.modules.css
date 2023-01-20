@@ -1,0 +1,27 @@
+.App{
+    background: url("https://c4.wallpaperflare.com/wallpaper/252/674/434/soccer-paulo-dybala-argentinian-juventus-f-c-wallpaper-preview.jpg") no-repeat center center fixed;
+        background-size: cover;
+        
+}
+
+.cartas{
+    background-color: white;
+    margin-bottom: -5px;
+    padding-bottom: 46px;
+    border-color: black;
+
+    
+}
+
+.nav{
+    border: 2px solid black;
+    background-color: white;
+    margin-right: 275px;
+    margin-left: 275px;
+}
+
+.carta{
+    border: 5px solid beige;
+    padding: 0px;
+    box-shadow: 15px 5px 20px gray;
+}
