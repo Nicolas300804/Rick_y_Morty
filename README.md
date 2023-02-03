@@ -1,70 +1,134 @@
-# Getting Started with Create React App
+# HW 05: Express | Integración
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## **Duración estimada 🕒**
 
-## Available Scripts
+x minutos
 
-In the project directory, you can run:
+<br />
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## **Rick & Morty App**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### **INTRO**
 
-### `npm test`
+En base a lo practicado en la homework Exercises, vamos a crear rutas con sus respectivas solicitudes HTTP que se van a ir guardando en un array que simulará nuestra base de datos. En esta homework consumiremos la información de la API de Rick & Morty que luego enviaremos a nuestro frontend.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<br />
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### **👩‍💻 EJERCICIO 1**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### **Instalar Express**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Debes instalar express con `npm install express`.
 
-### `npm run eject`
+2. Corrobora que se ha instalado abriendo tu archivo package.json dentro de `dependencies`, sección que se ha creado automáticamente cuando instalaste express o también puedes verla dentro de la carpeta node_modules.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<br />
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### **👩‍💻 EJERCICIO 2**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### **Crear servidor con Express**
 
-## Learn More
+1. Anteriormente habías creado tu servidor con node puro en el archivo server.js, ahora lo cambiaremos para utilizar directamente el framework Express.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. Define una constante que llamada `express` y en ella guarda la función `require` que incluya el módulo **express**, de esta forma podemos usar el paquete **Express** que instalamos.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Define una segunda constante llamada `app` en la que guardes la ejecución de express, ello se encarga de manejar las solicitudes y respuestas cliente-servidor.
 
-### Code Splitting
+```javascript
+const express = require("express");
+const app = express();
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+😎 Acabas de crear tu servidor con Express!!
 
-### Analyzing the Bundle Size
+<br />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+### **👩‍💻 EJERCICIO 3**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### **Iniciar servidor**
 
-### Advanced Configuration
+1. Crea un archivo llamado **start.js** en el que importes el servidor que se encuentra configurado en el archivo **server.js**, desde este archivo levantaremos el servidor.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+2. En el archivo **package.json** debes cambiar el script `start` donde su valor sea `"nodemon ./src/routes/start.js"`
 
-### Deployment
+```javascript
+    "start": "nodemon ./src/routes/start.js",
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+3. Es hora de iniciar el servidor, con el método listen de express, coloca a escuchar el servidor en el puerto 3001.
 
-### `npm run build` fails to minify
+<br />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+### **👩‍💻 EJERCICIO 4**
+
+### **Crear Rutas**
+
+En la constante **app** ahora tenemos acceso a los métodos HTTP, vamos a necesitar para este ejercicio el método `get` y traer información, este método recibe dos argumentos: el endpoint (path) y una función callback.
+Esta función callback recibe dos parámetros: el objeto `request`, por convención conocido como `req` y el objeto `response` por convención conocido como `res`. 
+
+🔹 Lo que hay que hacer:
+
+1. Anteriormente, en la homework de **Web Server** habíamos creado una ruta get que obtiene el personaje de Rick & Morty por **id** mediante un archivo que tenemos llamado `data.js`, ahora traeremos esa información directamente de la API de Rick & Morty con la url `https://rickandmortyapi.com/api/character`. Para ello, hagamos los siguientes cambios:
+    
+    a. Borremos o comentemos la ruta get anteriormente creada en la homework **Web server**.
+
+    b. Crea la ruta **get/`rickandmorty`/character/:id**, dentro de la ruta aplica la lógica y trae la información de la API de Rick & Morty: https://rickandmortyapi.com/api/character/{id}  para traer solo los datos que precisa el componente **Card.jsx** en el front, envía estos datos como respuesta:
+
+    - id
+    - name
+    - species
+    - gender
+    - image
+
+2. Crea una segunda ruta **get/`rickandmorty`/detail/:detailId**, 
+dentro de la ruta aplica la lógica y trae la información de la API de Rick & Morty: https://rickandmortyapi.com/api/character/{detailId} para traer los datos que precisa el componente **Detail.jsx** en el front, envía estos datos como respuesta:
+
+    - name
+    - status
+    - species
+    - gender
+    - origin
+    - image
+
+> Hint: Recuerda que los llamados a la API son asíncronos.
+
+3. Define una constante llamada `fav` que sea un arreglo vacío y luego crea las siguientes rutas:
+
+    a. **GET/`rickandmorty`/fav**, que obtenga los personajes guardados en el arreglo **fav**.
+
+    b. **POST/`rickandmorty`/fav**, que guarde los personajes en el arreglo **fav**.
+
+    c. **DELETE/`rickandmorty`/fav/:id**, que elimine el personaje en el arreglo **fav** a partir del **id** que recibe por parámetro.
+
+> Hint: Recuerda modularizar en tu carpeta controllers como lo aprendiste en la homework 03-Promises con los archivos **getCharById.js** y **getCharDetail.js**
+
+
+<br />
+
+---
+
+### **👩‍💻 EJERCICIO 5**
+
+### **Conectar rutas con frontend**
+
+Por último, recordemos que en el front habíamos configurado la ruta para que consuma los datos desde nuestro servidor.
+
+Ahora dirígete a la carpeta **front** y haz los siguientes cambios:
+
+1. En el componente Detail donde llamamos a la API de Rick & Morty en la ruta **https://rickandmortyapi.com/api/character/** cámbiala por la ruta que creamos en el back: **http://localhost:3001/rickandmorty/detail**
+
+2. En la action para agregar favorito, ahora debes enviar los personajes al endpoint **http://localhost:3001/rickandmorty/fav** con el método `post`.
+
+3. En la action para eliminar favorito, ahora debes enviar el personaje a eliminar al endpoint **http://localhost:3001/rickandmorty/fav** con el método `delete`.
+
+✨✨Llegamos al final de esta homework creamos nuestro servidor y tres rutas para nuestro front!! 🚀🚀
